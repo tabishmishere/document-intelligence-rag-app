@@ -5,14 +5,14 @@ A practice project that turns text-based PDFs into searchable chunks and answers
 ## How it works
 
 1. `POST /ingest` extracts text from a PDF and splits it into overlapping chunks.
-2. OpenAI creates an embedding for each chunk.
+2. Gemini creates an embedding for each chunk.
 3. Supabase stores the chunks and embeddings for vector search.
-4. `POST /chat` searches for relevant chunks and asks OpenAI to answer using them.
+4. `POST /chat` searches for relevant chunks and asks Gemini to answer using them.
 
 ## Requirements
 
 - Node.js 20 or later
-- An OpenAI API key
+- A Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey)
 - A Supabase project with the `vector` extension enabled
 
 ## Setup
@@ -26,7 +26,7 @@ npm install
 Create a `.env` file in the project root:
 
 ```env
-OPEN_AI_API_KEY=your-openai-api-key
+GEMINI_API_KEY=your-gemini-api-key
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SECRET_KEY=your-supabase-secret-key
 PORT=3000
@@ -138,6 +138,7 @@ npm test
 ## Notes
 
 - Re-ingesting a PDF with the same filename replaces its previous chunks.
+- If you previously stored OpenAI embeddings, remove those old rows and re-ingest the PDFs. OpenAI and Gemini vectors are not compatible, even when both use 1536 dimensions.
 - Scanned PDFs require OCR; OCR is not included.
 - This practice API has no authentication. Do not expose it publicly as-is.
-- Keep API keys in `.env` and never commit them. Uploaded text is sent to OpenAI for embeddings and answer generation.
+- Keep API keys in `.env` and never commit them. Uploaded text is sent to Gemini for embeddings and answer generation.

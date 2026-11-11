@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { getChatCompletion, getEmbeddings } from "./lib/openai.js";
+import { getChatCompletion, getEmbeddings } from "./lib/gemini.js";
 import { searchSimilarChunks } from "./lib/supabase.js";
 
 export const chatHandler: RequestHandler = async (req, res) => {
@@ -17,7 +17,7 @@ export const chatHandler: RequestHandler = async (req, res) => {
 
   try {
     const question = body.question.trim();
-    const [queryEmbedding] = await getEmbeddings([question]);
+    const [queryEmbedding] = await getEmbeddings([question], "query");
     if (!queryEmbedding) {
       throw new Error("Failed to create an embedding for the question.");
     }

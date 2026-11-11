@@ -4,7 +4,7 @@ import multer from "multer";
 import { PDFParse } from "pdf-parse";
 import { chatHandler } from "./chat.js";
 import { splitDocument } from "./lib/chunking.js";
-import { getEmbeddings } from "./lib/openai.js";
+import { getEmbeddings } from "./lib/gemini.js";
 import { replaceEmbeddingsForSource } from "./lib/supabase.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
